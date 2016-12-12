@@ -10,7 +10,8 @@ class PhotosController < ApplicationController
   end
 
   def index
-    @photos = current_user.photos.page(params[:page]).per(10)
+    @q = current_user.photos.ransack(params[:q])
+      @photos = @q.result(:distinct => true).includes(:owner, :likes, :comments, :fans, :followers, :commenters).page(params[:page]).per(10)
     @location_hash = Gmaps4rails.build_markers(@photos.where.not(:location_latitude => nil)) do |photo, marker|
       marker.lat photo.location_latitude
       marker.lng photo.location_longitude
