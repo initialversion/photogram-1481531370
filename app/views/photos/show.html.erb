@@ -19,7 +19,13 @@
       </dd>
 
       <dt>Owner</dt>
-      <dd><%= @photo.owner_id %></dd>
+      <dd>
+        <% if @photo.owner.present? %>
+          <a href="/users/<%= @photo.owner_id %>">
+            <%= @photo.owner.email %>
+          </a>
+        <% end %>
+      </dd>
 
     </dl>
 

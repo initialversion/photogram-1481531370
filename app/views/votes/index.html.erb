@@ -16,8 +16,20 @@
 
       <% @votes.each do |vote| %>
       <tr>
-        <td><%= vote.user.email %></td>
-        <td><%= vote.photo.caption %></td>
+        <td>
+          <% if vote.user.present? %>
+            <a href="/users/<%= vote.user.id %>">
+              <%= vote.user.email %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <% if vote.photo.present? %>
+            <a href="/photos/<%= vote.photo.id %>">
+              <%= vote.photo.caption %>
+            </a>
+          <% end %>
+        </td>
         <td>
           <a href="/votes/<%= vote.id %>" class="btn btn-primary">Show</a>
           
